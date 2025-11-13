@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const articleSchema = new mongoose.Schema({
   title: {
@@ -12,6 +12,13 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tags: {
+    type: [String],
+    validate: {
+      validator: arr => arr.length <= 5,
+      message: 'A maximum of 5 tags are allowed.',
+    }
+  }
 });
 
 const Article = mongoose.model('Article', articleSchema);
